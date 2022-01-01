@@ -7,6 +7,9 @@ import '@babel/polyfill'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 
+//Global styles
+import './assets/css/styles.css'
+
 Vue.config.productionTip = false
 
 new Vue({

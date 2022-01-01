@@ -1,5 +1,7 @@
 <template>
-  <h1>100Ladrillos</h1>
+  <div>
+    <h1>100Ladrillos</h1>
+  </div>
 </template>
 
 <script>
