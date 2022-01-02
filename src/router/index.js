@@ -35,7 +35,15 @@ const routes = [
   {
     path: '/registro/curp',
     name: 'Curp',
-    component: () => import("../views/SignUp"),
+    component: () => import("../views/signUp/Curp"),
+    meta:{
+      layout: 'RegisterLayout'
+    }
+  },
+  {
+    path: '/registro/completo',
+    name: 'Curp',
+    component: () => import("../views/signUp/Completed"),
     meta:{
       layout: 'RegisterLayout'
     }
