@@ -32,7 +32,7 @@ export default {
 
 .social{
   margin-top: 24px;
-  width: 320px;
+  max-width: 320px;
 }
 
 .social__content__head .line{

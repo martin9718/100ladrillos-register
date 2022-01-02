@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/registro/usuario',
     name: 'SignUp',
-    component: () => import("../views/SignUp"),
+    component: () => import("../views/signUp/SignUp"),
     meta:{
       layout: 'RegisterLayout'
     }

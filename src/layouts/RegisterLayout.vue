@@ -50,7 +50,7 @@
 
           </v-img>
         </v-col>
-        <v-col cols="12" md="8">
+        <v-col cols="12" md="8" class="main">
           <slot/>
         </v-col>
       </v-row>
@@ -108,6 +108,12 @@ export default {
 .register-layout__bar__mobile .v-btn{
   position: absolute;
   left: 17px;
+}
+
+.main{
+  width: calc(100% - 34px);
+  margin: 0 auto;
+  padding: 0 17px;
 }
 
 @media (max-width: 959px) {

@@ -38,8 +38,10 @@ export default {
   props: {
     password: String
   },
-  created() {
-
+  data() {
+    return{
+      errors:[]
+    }
   },
   watch: {
     password(val) {
@@ -49,31 +51,55 @@ export default {
   methods: {
     checkPassword(password) {
 
+
       this.resetClass();
+      this.errors = [];
       if(!password) return;
+
       if (password.length >= 6) this.addClass('rule1');
+      else this.errors.push('La contraseña debe tener mínimo 6 caracteres');
 
       const items = password.split('');
 
-      items.forEach(item => {
-        if (!isNaN(item)) return this.addClass('rule2');
-      });
+      for(let i  = 0; i < items.length; i++){
+        if (!isNaN(items[i])) {
+          this.addClass('rule2');
+          break;
+        }else if (i === items.length -1){
+          this.errors.push('La contraseña debe tener mínimo 1 número');
+        }
+
+      }
 
 
       const signs = '!”#$%&/()=?¿^*@‚[]{};:_><,.-|`+'.split('');
 
-      signs.forEach(item => {
-        if (password.includes(item)) return this.addClass('rule3');
-      });
+      for(let i  = 0; i < signs.length; i++){
+        if (password.includes(signs[i])) {
+          this.addClass('rule3');
+          break;
+        }else if (i === signs.length -1){
+          this.errors.push('La contraseña debe tener mínimo 1 caracter especial');
+        }
+
+      }
 
       if (!password.includes('100Ladrillos')) this.addClass('rule4');
+      else this.errors.push('La contraseña no debe contener la frase "100Ladrillos"');
+
 
       items.forEach((item, i) => {
-        if (password.includes(item + item + item)) return false;
-        else if (i === items.length - 1) this.addClass('rule5');
+        if (password.includes(item + item + item)){
+          this.errors.push('La contraseña no debe contener 3 caracteres identicos de forma consecutiva');
+        }
+        else if (i === items.length - 1){
+          this.addClass('rule5');
+        }
       });
 
       this.validNumbers(password, items);
+
+      console.log(this.errors)
 
     },
     validNumbers(password, items) {
@@ -91,6 +117,7 @@ export default {
                 && parseInt(items[i + 1]) - parseInt(item)  === 1
                 && parseInt(items[i + 2]) - parseInt(item)  === 2
             ) {
+              this.errors.push('La contraseña no debe contener 3 caracteres numéricos y/o letras en forma secuencial');
               return isValid = false;
             }
           }
@@ -101,6 +128,8 @@ export default {
       }else{
         this.addClass('rule6');
       }
+
+      this.passErrors();
     },
     addClass(ref) {
       this.$refs[ref].classList.add('check');
@@ -109,6 +138,9 @@ export default {
       for (let i in this.$refs) {
         this.$refs[i].classList.remove('check')
       }
+    },
+    passErrors(){
+      this.$emit('errors', this.errors);
     }
   }
 }

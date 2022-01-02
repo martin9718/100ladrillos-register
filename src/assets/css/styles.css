@@ -15,6 +15,7 @@ body{
     font-size: 14px;
     font-weight: normal;
     line-height: 20px;
+    margin-bottom: 8px;
 }
 
 .form__field input,
@@ -22,8 +23,15 @@ body{
     border: 1px solid #bdbcbc;
     border-radius: 4px;
     height: 40px;
+    margin-top: 6px;
     padding: 12px 8px;
     width: 320px;
+}
+
+::placeholder{
+    font-size: 14px;
+    font-weight: normal;
+    color: #bdbcbc !important;
 }
 
 .form__field input:focus-visible{
@@ -49,8 +57,17 @@ body{
     cursor: pointer;
 }
 
+.form__field span{
+    color: red;
+    display: block;
+    font-size: 12px;
+}
 .btn-active{
-    background: #eaeaea;
+    background: #ff5a60 !important;
+    box-shadow: none;
+    color: white !important;
+    font-size: 16px;
+    font-weight: normal;
     height: 40px;
     min-width: 112px;
     text-transform: none;
@@ -65,4 +82,11 @@ body{
     height: 40px;
     min-width: 112px;
     text-transform: none;
+}
+
+@media (max-width: 499px){
+    .form__field input,
+    .form__field__pass{
+        width: 288px;
+    }
 }

@@ -16,9 +16,6 @@ export default {
   props: {
     completedSteps: Number
   },
-  created() {
-    console.log(this.completedSteps)
-  }
 }
 </script>
 
