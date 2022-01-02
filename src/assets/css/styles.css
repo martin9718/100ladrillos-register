@@ -1,3 +1,21 @@
 body{
     font-family: Roboto, sans-serif !important;
 }
+
+.btn-active{
+    background: #eaeaea;
+    height: 40px;
+    min-width: 112px;
+    text-transform: none;
+}
+
+.btn-no-active{
+    background: #eaeaea;
+    box-shadow: none;
+    color: #8c8c8c !important;
+    font-size: 16px;
+    font-weight: normal;
+    height: 40px;
+    min-width: 112px;
+    text-transform: none;
+}
