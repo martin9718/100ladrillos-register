@@ -2,21 +2,21 @@
 
 ## Project setup
 
-###Have node installed
+### Have node installed
 
-###Have vue installed
+### Have vue installed
 
 ```
 npm install vue
 ```
 
-###Have vue cli installed
+### Have vue cli installed
 
 ```
 npm install -g @vue/cli
 ```
 
-###Rebuild node_modules
+### Rebuild node_modules
 
 ```
 npm install
