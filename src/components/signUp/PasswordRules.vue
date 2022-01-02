@@ -99,7 +99,6 @@ export default {
 
       this.validNumbers(password, items);
 
-      console.log(this.errors)
 
     },
     validNumbers(password, items) {

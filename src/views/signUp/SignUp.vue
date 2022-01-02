@@ -29,7 +29,7 @@
         <div v-if="!user.email">
           <Social/>
 
-          <div class="sign-up__content__form__login d-block d-md-none">
+          <div class="form__login d-block d-md-none">
             <span>¿Ya tienes tu cuenta?</span>
             <v-btn text color="primary">Iniciar sesión</v-btn>
           </div>
@@ -67,6 +67,8 @@
 
 <script>
 
+import {mapActions} from 'vuex';
+
 import SignUpPasswordRules from "../../components/signUp/PasswordRules";
 import Social from "../../components/signUp/Social";
 import Steps from "../../components/signUp/Steps";
@@ -91,9 +93,17 @@ export default {
     Social,
     Steps
   },
+  created() {
+    this.setSteps(1)
+  },
   methods: {
-    signUp() {
-      this.checkForm(this.user);
+    ...mapActions('auth', ['register', 'setSteps']),
+    async signUp() {
+      const check = this.checkForm();
+      if(!check) return;
+
+      await this.register(this.user);
+
     },
     checkForm() {
       this.errors.email = [];
@@ -109,7 +119,7 @@ export default {
         if (this.errors[i].length > 0) return false;
       }
 
-
+      return true;
 
     },
     showPass() {
@@ -159,25 +169,6 @@ export default {
   margin: 0 auto;
 }
 
-.sign-up__content__form__login {
-  margin-top: 48px;
-  text-align: center;
-}
-
-.sign-up__content__form__login span {
-  display: block;
-  font-size: 14px;
-}
-
-.sign-up__content__form__login .v-btn {
-  font-size: 16px;
-  font-weight: bold;
-  height: 48px;
-  letter-spacing: normal;
-  padding: 10px 32px;
-  text-transform: none;
-  width: 163px;
-}
 
 @media (max-width: 499px) {
   .sign-up__content {

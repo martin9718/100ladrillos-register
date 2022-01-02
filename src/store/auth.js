@@ -1,10 +1,12 @@
 import store from '../store';
+import axios from 'axios';
 
 export default {
     namespaced: true,
     state: {
         user: {},
-        token: ''
+        token: '',
+        steps: 1
     },
     mutations: {
         setUser(state, user) {
@@ -12,6 +14,9 @@ export default {
         },
         setToken(state, token) {
             state.token = token;
+        },
+        setSteps(state, steps) {
+            state.steps = steps;
         },
     },
     actions: {
@@ -21,15 +26,19 @@ export default {
         setToken({commit}, token) {
             commit('setToken', token)
         },
+        setSteps({commit}, steps) {
+            commit('setSteps', steps)
+        },
         async register({commit}, user) {
-            commit('setErrors', 'clear');
+            console.log(user);
             const response = await store.dispatch(
                 'requestFetch',
                 {
-                    path: `/api/auth/users`,
-                    method: 'GET',
-                    data: user
-                });
+                    path: '/api/signUp',
+                    method: 'POST',
+                    data: {email: user.email, password: user.password}
+                }
+                );
             console.log(response)
             return response;
         },
@@ -41,6 +50,9 @@ export default {
         },
         getToken(state) {
             return state.token;
+        },
+        getSteps(state) {
+            return state.steps;
         }
     }
 

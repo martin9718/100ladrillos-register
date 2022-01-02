@@ -62,6 +62,26 @@ body{
     display: block;
     font-size: 12px;
 }
+
+.form__login {
+    margin-top: 48px;
+    text-align: center;
+}
+
+.form__login span {
+    display: block;
+    font-size: 14px;
+}
+
+.form__login .v-btn {
+    font-size: 16px;
+    font-weight: bold;
+    height: 48px;
+    letter-spacing: normal;
+    padding: 10px 32px;
+    text-transform: none;
+    width: 163px;
+}
 .btn-active{
     background: #ff5a60 !important;
     box-shadow: none;

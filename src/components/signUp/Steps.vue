@@ -3,7 +3,7 @@
     <div class="steps__content  d-flex justify-center align-center">
     <span
         v-for="(item, i) in 4"
-        :class="i + 1 <= completedSteps ? 'completed': ''"
+        :class="i + 1 <= getSteps ? 'completed': ''"
     >
     </span>
     </div>
@@ -11,11 +11,12 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name: "Steps",
-  props: {
-    completedSteps: Number
-  },
+  computed:{
+    ...mapGetters('auth', ['getSteps'])
+  }
 }
 </script>
 

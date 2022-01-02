@@ -30,23 +30,25 @@ export default new Vuex.Store({
     async requestFetch({commit}, options) {
       const myHeaders = new Headers();
 
-      myHeaders.append("Authorization", store.getters["auth/getToken"]);
+      // myHeaders.append("Authorization", store.getters["auth/getToken"]);
+      myHeaders.append("Access-Control-Allow-Origin", "*");
       myHeaders.append("Content-Type", "application/json");
-
 
       const requestOptions = {
         method: options.method,
-        mode: 'cors',
         headers: myHeaders,
-        body: JSON.stringify(options.data) || null,
+        mode: 'no-cors',
+        body: options.data,
         redirect: 'follow'
       };
+
+      console.log(requestOptions)
 
       try {
         const response = await fetch(`${store.getters['getUrlApi']}${options.path}`, requestOptions);
         const data = await response.json();
 
-        if (data.code) throw data.code;
+
         return data;
       } catch (error) {
         console.log(error);
