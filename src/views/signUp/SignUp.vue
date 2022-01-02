@@ -102,8 +102,8 @@ export default {
       const check = this.checkForm();
       if(!check) return;
 
-      await this.register(this.user);
-
+      // await this.register(this.user);
+      await this.$router.push('/registro/telefono');
     },
     checkForm() {
       this.errors.email = [];

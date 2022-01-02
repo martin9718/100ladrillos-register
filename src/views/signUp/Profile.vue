@@ -31,7 +31,7 @@
           </div>
 
           <div class="profile__content__form__actions">
-            <v-btn class="btn-no-active mt-6 mr-4">Anterior</v-btn>
+            <v-btn to="/registro/telefono" class="btn-no-active mt-6 mr-4">Anterior</v-btn>
             <v-btn :class="errorsExists ? 'btn-no-active' : 'btn-active' "
                    :disabled="errorsExists > 0" class="mt-6"
                    @click="createProfile">Siguiente</v-btn>
@@ -83,6 +83,7 @@ export default {
     createProfile(){
       const check = this.checkForm();
       if(!check) return;
+      this.$router.push('/registro/curp')
     }
   },
   computed:{

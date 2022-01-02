@@ -20,8 +20,8 @@
         <v-btn text color="primary">Iniciar sesión</v-btn>
       </div>
         <div class="phone__content__form__actions">
-          <v-btn class="btn-no-active mt-6 mr-4">Anterior</v-btn>
-          <v-btn :class="errors.length > 0 ? 'btn-no-active' : 'btn-active' "
+          <v-btn to="/registro/perfil" class="btn-no-active mt-6 mr-4">Anterior</v-btn>
+          <v-btn @click="completeRegister" :class="errors.length > 0 ? 'btn-no-active' : 'btn-active' "
                  :disabled="errors.length > 0" class="mt-6"
                  >Siguiente</v-btn>
         </div>
@@ -53,21 +53,26 @@ export default {
     ...mapActions('auth', ['setSteps']),
     checkCURP(){
       this.errors = [];
-       const re = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/;
+      if (!this.curp){
+        this.errors.push('La CURP es requerida');
+        return false;
+      }
+
+      const re = /^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/;
 
        const valid = this.curp.match(re);
 
 
-      if (!this.curp) this.errors.push('La CURP es requeridA');
       if (!valid) this.errors.push('La CURP debe ser válida');
 
 
       if (this.errors.length > 0) return false;
       else return true;
     },
-    showModal(){
+    completeRegister(){
       const check = this.checkCURP();
       if(!check) return;
+      this.$router.push('/registro/completo')
     }
   }
 }

@@ -1,5 +1,6 @@
 <template>
 <div class="phone d-flex justify-center align-center">
+  <ModalPhone :modal="modal" @modal="getModal($event)"/>
   <div class="phone__content">
     <div class="phone__content__head">
       <Steps class="d-block d-md-none mb-6" />
@@ -19,7 +20,7 @@
             <v-btn text color="primary">Iniciar sesión</v-btn>
           </div>
           <div class="phone__content__form__actions">
-            <v-btn class="btn-no-active mt-6 mr-4">Anterior</v-btn>
+            <v-btn to="/registro/usuario" class="btn-no-active mt-6 mr-4">Anterior</v-btn>
             <v-btn :class="errors.length > 0 ? 'btn-no-active' : 'btn-active' "
                    :disabled="errors.length > 0" class="mt-6"
             @click="showModal">Siguiente</v-btn>
@@ -32,23 +33,26 @@
 </template>
 
 <script>
-import Steps from "../../components/signUp/Steps";
 import {mapActions} from "vuex";
+import Steps from "../../components/signUp/Steps";
+import ModalPhone from "../../components/signUp/ModalPhone";
 
 export default {
   name: "Phone",
   components:{
-    Steps
+    Steps,
+    ModalPhone
   },
   data(){
     return{
       number: '',
       show: false,
-      errors:[]
+      errors:[],
+      modal: false
     }
   },
   created() {
-    this.setSteps(2)
+    this.setSteps(2);
   },
   methods:{
     ...mapActions('auth', ['setSteps']),
@@ -67,6 +71,10 @@ export default {
     showModal(){
       const check = this.checkPhone();
       if(!check) return;
+      this.modal = true;
+    },
+    getModal(modal){
+      this.modal = modal
     }
   }
 }
