@@ -42,7 +42,7 @@
     </v-app-bar>
     <v-main>
       <v-row>
-        <v-col md="5" class="hidden-sm-and-down">
+        <v-col md="4" class="hidden-sm-and-down">
           <v-img
               src="../assets/images/register-layout/main-img.png"
               max-width="524"
@@ -50,7 +50,7 @@
 
           </v-img>
         </v-col>
-        <v-col cols="12" md="7">
+        <v-col cols="12" md="8">
           <slot/>
         </v-col>
       </v-row>
@@ -90,6 +90,10 @@ export default {
 .register-layout__bar__mobile{
   width: 100%;
 }
+
+/*.register-layout__bar__desk__img {*/
+/*  position: fixed;*/
+/*}*/
 
 .register-layout__bar__desk__actions .v-btn {
   font-size: 16px;

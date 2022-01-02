@@ -3,7 +3,7 @@
     <div class="sign-up__content">
       <div class="sign-up__content__head">
         <Steps class="d-block d-md-none mb-6" />
-        <h3>Crear tu cuenta</h3>
+        <h3 class="head__title">Crear tu cuenta</h3>
         <p>Al aceptar crear una cuenta en 100 ladrillos aceptas nuestro
           <router-link :to="{name: 'SignUp'}">Aviso de Privacidad,</router-link>
           <router-link :to="{name: 'SignUp'}">Derechos Arco</router-link>
@@ -12,13 +12,13 @@
         </p>
       </div>
       <div class="sign-up__content__form">
-        <div class="sign-up__content__form__field">
+        <div class="form__field">
           <label>¿Cuál es tu correo electrónico?</label>
           <input type="text" v-model="user.email">
         </div>
-        <div class="sign-up__content__form__field">
+        <div class="form__field">
           <label>Ingresa una contraseña</label>
-          <div class="sign-up__content__form__field__pass d-flex align-center">
+          <div class="form__field__pass d-flex align-center">
             <input :type="show ? 'text' : 'password'" v-model="user.password">
             <v-icon @click="showPass" size="small">{{show ? 'fas fa-eye-slash' : 'fas fa-eye'}}</v-icon>
           </div>
@@ -29,18 +29,18 @@
         <div v-else>
           <SignUpPasswordRules :password="user.password" />
 
-          <div class="sign-up__content__form__field">
+          <div class="form__field">
             <label>Confirma tu contraseña</label>
-            <div class="sign-up__content__form__field__pass d-flex align-center">
-              <input :type="show ? 'text' : 'password'" v-model="user.password">
-              <v-icon @click="showPass" size="small">{{show ? 'fas fa-eye-slash' : 'fas fa-eye'}}</v-icon>
+            <div class="form__field__pass d-flex align-center">
+              <input :type="show2 ? 'text' : 'password'" v-model="user.password_confirm">
+              <v-icon @click="showConfirmPass" size="small">{{show2 ? 'fas fa-eye-slash' : 'fas fa-eye'}}</v-icon>
             </div>
           </div>
 
           <v-btn class="btn-no-active mt-6">Siguiente</v-btn>
         </div>
 
-        <Steps class="d-none d-md-block" />
+        <Steps class="d-none d-md-block" :completedSteps="completedSteps"/>
 
 
       </div>
@@ -61,7 +61,9 @@ export default {
     return{
       user: {},
       errors: {},
-      show: false
+      show: false,
+      show2: false,
+      completedSteps: 1
     }
   },
   components:{
@@ -76,7 +78,11 @@ export default {
     },
     showPass(){
       this.show = !this.show;
-    }
+    },
+    showConfirmPass(){
+      this.show2 = !this.show2;
+    },
+
   }
 }
 </script>
@@ -91,11 +97,6 @@ export default {
   width: 320px;
 }
 
-.sign-up__content__head h3 {
-  font-size: 18px;
-  font-weight: bold;
-}
-
 .sign-up__content__head p {
   font-size: 14px;
   margin-top: 24px;
@@ -106,47 +107,7 @@ export default {
   text-decoration: none;
 }
 
-.sign-up__content__form__field {
-  margin-top: 24px;
-}
 
-.sign-up__content__form__field label {
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 20px;
-}
-
-.sign-up__content__form__field input,
-.sign-up__content__form__field__pass{
-  border: 1px solid #bdbcbc;
-  border-radius: 4px;
-  height: 40px;
-  padding: 12px 8px;
-  width: 320px;
-}
-
-.sign-up__content__form__field input:focus-visible{
-  outline: none;
-  border: 4px solid #77c1ff;
-}
-
-.sign-up__content__form__field__pass input:focus-visible {
-  outline: none;
-  border: none;
-}
-
-.sign-up__content__form__field__pass input {
-  border: none;
-}
-
-.sign-up__content__form__field__pass:focus-visible{
-  /*border: 4px solid #77c1ff;*/
-  /*outline: #28c76f;*/
-}
-
-.sign-up__content__form__field__pass .v-icon {
-  cursor: pointer;
-}
 
 
 

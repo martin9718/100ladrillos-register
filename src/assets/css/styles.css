@@ -2,6 +2,53 @@ body{
     font-family: Roboto, sans-serif !important;
 }
 
+.head__title{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.form__field {
+    margin-top: 24px;
+}
+
+.form__field label {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+.form__field input,
+.form__field__pass{
+    border: 1px solid #bdbcbc;
+    border-radius: 4px;
+    height: 40px;
+    padding: 12px 8px;
+    width: 320px;
+}
+
+.form__field input:focus-visible{
+    outline: none;
+    border: 4px solid #77c1ff;
+}
+
+.form__field__pass input:focus-visible {
+    outline: none;
+    border: none;
+}
+
+.form__field__pass input {
+    border: none;
+}
+
+.form__field__pass:focus-visible{
+    /*border: 4px solid #77c1ff;*/
+    /*outline: #28c76f;*/
+}
+
+.form__field__pass .v-icon {
+    cursor: pointer;
+}
+
 .btn-active{
     background: #eaeaea;
     height: 40px;
