@@ -1,6 +1,23 @@
 # 100ladrillos-register
 
 ## Project setup
+
+###Have node installed
+
+###Have vue installed
+
+```
+npm install vue
+```
+
+###Have vue cli installed
+
+```
+npm install -g @vue/cli
+```
+
+###Rebuild node_modules
+
 ```
 npm install
 ```
@@ -14,11 +31,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
