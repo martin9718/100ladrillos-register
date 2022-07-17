@@ -38,6 +38,7 @@ export default {
 
             await store.dispatch('auth/setToken', 'bearer ' + response.token);
             return response;
+
         },
         async phoneNumber({commit}, phone) {
             const response = await store.dispatch(
