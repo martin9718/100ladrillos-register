@@ -3,20 +3,17 @@ import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
 import SecureLS from "secure-ls";
 import store from "../store";
+import auth from "./auth";
 
 const ls = new SecureLS({
   isCompression: false
 });
-Vue.use(Vuex)
 
+Vue.use(Vuex);
 
-import auth from "./auth";
-
+const success_codes = [200, 201];
 
 export default new Vuex.Store({
-  state: {
-    url_api: 'https://frontend-recruiting.100ladrillos.com',
-  },
   plugins: [createPersistedState({
     storage: {
       getItem: (key) => ls.get(key),
@@ -27,32 +24,38 @@ export default new Vuex.Store({
   mutations: {
   },
   actions: {
-    async requestFetch({commit}, options) {
+    async requestFetch({commit}, {path, method, data, authentication = true }) {
       const myHeaders = new Headers();
 
-      // myHeaders.append("Authorization", store.getters["auth/getToken"]);
-      myHeaders.append("Access-Control-Allow-Origin", "*");
+      if(authentication){
+        myHeaders.append("Authorization", store.getters["auth/getToken"]);
+      }
+
       myHeaders.append("Content-Type", "application/json");
 
       const requestOptions = {
-        method: options.method,
+        method: method,
         headers: myHeaders,
-        mode: 'no-cors',
-        body: options.data,
+        body: JSON.stringify(data),
         redirect: 'follow'
       };
 
-      console.log(requestOptions)
-
       try {
-        const response = await fetch(`${store.getters['getUrlApi']}${options.path}`, requestOptions);
-        const data = await response.json();
+        const response = await fetch(`/api${path}`, requestOptions);
 
+        const body = await response.json();
 
-        return data;
+        if(!success_codes.includes(response.status)){
+          //HANDLE ERROR
+          return false;
+        }
+
+        return body;
+
       } catch (error) {
         console.log(error);
-        return {error};
+        //HANDLE ERROR
+        return false;
       }
     }
   },
@@ -61,9 +64,5 @@ export default new Vuex.Store({
     auth,
   }
   ,
-  getters: {
-    getUrlApi(state) {
-      return state.url_api;
-    },
-  }
+  getters: {}
 })

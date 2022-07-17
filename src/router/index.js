@@ -42,7 +42,7 @@ const routes = [
   },
   {
     path: '/registro/completo',
-    name: 'Curp',
+    name: 'Completed',
     component: () => import("../views/signUp/Completed"),
     meta:{
       layout: 'RegisterLayout'

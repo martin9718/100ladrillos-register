@@ -1,17 +1,12 @@
 import store from '../store';
-import axios from 'axios';
 
 export default {
     namespaced: true,
     state: {
-        user: {},
         token: '',
         steps: 1
     },
     mutations: {
-        setUser(state, user) {
-            state.user = user
-        },
         setToken(state, token) {
             state.token = token;
         },
@@ -20,9 +15,6 @@ export default {
         },
     },
     actions: {
-        setUser({commit}, user) {
-            commit('setUser', user)
-        },
         setToken({commit}, token) {
             commit('setToken', token)
         },
@@ -30,24 +22,73 @@ export default {
             commit('setSteps', steps)
         },
         async register({commit}, user) {
-            console.log(user);
+
             const response = await store.dispatch(
                 'requestFetch',
                 {
-                    path: '/api/signUp',
+                    path: '/signUp',
                     method: 'POST',
-                    data: {email: user.email, password: user.password}
+                    data: {email: user.email, password: user.password},
+                    authentication: false
                 }
                 );
-            console.log(response)
+            if(!response) return false;
+
+            console.log(response.token)
+
+            await store.dispatch('auth/setToken', 'bearer ' + response.token);
+            return response;
+        },
+        async phoneNumber({commit}, phone) {
+            const response = await store.dispatch(
+                'requestFetch',
+                {
+                    path: '/phoneNumber',
+                    method: 'POST',
+                    data: {number: phone}
+                }
+            );
+
+            return response;
+        },
+        async verifyPhoneNumber({commit}, digit) {
+            const response = await store.dispatch(
+                'requestFetch',
+                {
+                    path: '/phoneNumber/verify',
+                    method: 'POST',
+                    data: {token: digit}
+                }
+            );
+
+            return response;
+        },
+        async profileName({commit}, {name, secondName, firstLastName, secondLastName}) {
+            const response = await store.dispatch(
+                'requestFetch',
+                {
+                    path: '/profile/name',
+                    method: 'POST',
+                    data: {name, secondName, firstLastName, secondLastName}
+                }
+            );
+
+            return response;
+        },
+        async profile({commit}) {
+            const response = await store.dispatch(
+                'requestFetch',
+                {
+                    path: '/profile',
+                    method: 'GET'
+                }
+            );
+
             return response;
         },
 
     },
     getters: {
-        getUser(state) {
-            return state.user;
-        },
         getToken(state) {
             return state.token;
         },

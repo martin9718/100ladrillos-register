@@ -5,21 +5,24 @@
         <Steps class="d-block d-md-none mb-6" />
         <v-icon>fas fa-check</v-icon>
         <h3 class="head__title">Haz creado una cuenta</h3>
-        <span>Tu número de cliente es: 000001</span>
+        <span>Tu número de cliente es: {{user.clientNumber}}</span>
       </div>
       <div class="completed__content__info">
-        <h3>Lucile Salazar Quintero</h3>
-        <span>tu@correo.com</span>
-        <span>33 1111 1111</span>
+        <h3>{{`${user.name} ${user.secondName || ''} ${user.firstLastName} ${user.secondLastName || ''}`}}</h3>
+        <span>{{user.email}}</span>
+        <span v-if="user.phone">{{user.phone.number}}</span>
       </div>
       <v-btn text color="primary">Iniciar sesión</v-btn>
-      <Steps class="d-none d-md-block" />
+      <div class="d-flex justify-center">
+        <Steps class="d-none d-md-block" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Steps from "../../components/signUp/Steps";
+import {mapActions} from "vuex";
 
 export default {
   name: "Completed",
@@ -28,9 +31,14 @@ export default {
   },
   data(){
     return{
-      user:{},
-      show: false
+      user:{}
     }
+  },
+  async created() {
+    this.user = await this.profile();
+  },
+  methods:{
+    ...mapActions('auth', ['profile'])
   }
 }
 </script>

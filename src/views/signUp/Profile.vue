@@ -65,7 +65,7 @@ export default {
     this.setSteps(3)
   },
   methods:{
-    ...mapActions('auth', ['setSteps']),
+    ...mapActions('auth', ['setSteps', 'profileName']),
     checkForm() {
       this.errors.name = [];
       this.errors.firstLastName = [];
@@ -80,10 +80,18 @@ export default {
       return true;
 
     },
-    createProfile(){
+    async createProfile(){
       const check = this.checkForm();
-      if(!check) return;
-      this.$router.push('/registro/curp')
+      if(!check){
+        return;
+      }
+
+      const profile = await this.profileName(this.user);
+
+      if(profile){
+        await this.$router.push({name: 'Curp'});
+      }
+
     }
   },
   computed:{

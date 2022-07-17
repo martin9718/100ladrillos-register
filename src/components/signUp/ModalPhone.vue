@@ -18,10 +18,10 @@
       <span class="model__main__expiration">Tu código expirará en 2 minutos</span>
 
       <div class="model__main__input d-flex justify-space-between">
-        <input type="text" v-model="digits.one">
-        <input type="text" v-model="digits.twoo">
-        <input type="text" v-model="digits.tree">
-        <input type="text" v-model="digits.four">
+        <input type="text" v-model="digits.one" ref="d1" @keyup="jumpDigit('d2')">
+        <input type="text" v-model="digits.twoo" ref="d2" @keyup="jumpDigit('d3')">
+        <input type="text" v-model="digits.tree" ref="d3" @keyup="jumpDigit('d4')">
+        <input type="text" v-model="digits.four" ref="d4">
       </div>
       <span class="errors">{{errors[0]}}</span>
       <p class="model__main__re-send">¿Aún no te llega tu código? ó ¿Tu código expiró? Intenta enviarlo nuevamente</p>
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
   name: "ModalPhone",
   props:{
@@ -52,6 +54,7 @@ export default {
         tree: null,
         four: null
       },
+      digit: null,
       showModal: false,
       errors: []
     }
@@ -62,6 +65,7 @@ export default {
     }
   },
   methods:{
+    ...mapActions('auth', ['verifyPhoneNumber']),
     closeModal(){
       this.showModal = false;
       this.passModal();
@@ -72,20 +76,30 @@ export default {
     checkDigits(){
       this.errors = [];
 
-      let digit = this.digits.one + this.digits.twoo + this.digits.tree + this.digits.four;
+      this.digit = this.digits.one + this.digits.twoo + this.digits.tree + this.digits.four;
 
-      if(!digit || isNaN(digit) || digit.length !== 4){
+      if(!this.digit || isNaN(this.digit) || this.digit.length !== 4){
         this.errors.push('Los digitos no son válidos');
-          return false;
+        return false;
       }else{
         return true;
 
       }
     },
-    verifyNumber(){
+    async verifyNumber(){
       const check = this.checkDigits();
-      if(!check) return;
-      this.$router.push('/registro/perfil')
+      if(!check) {
+        return;
+      }
+
+      const verify = await this.verifyPhoneNumber(this.digit);
+      if(verify){
+        await this.$router.push({name: 'Profile'})
+      }
+
+    },
+    jumpDigit(digit){
+      this.$refs[digit].focus();
     }
   }
 }

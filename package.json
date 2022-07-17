@@ -10,7 +10,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@fortawesome/fontawesome-free": "5.15.3",
-    "axios": "^0.24.0",
     "core-js": "^3.6.5",
     "roboto-fontface": "*",
     "secure-ls": "^1.2.6",

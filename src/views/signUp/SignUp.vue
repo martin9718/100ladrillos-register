@@ -100,10 +100,16 @@ export default {
     ...mapActions('auth', ['register', 'setSteps']),
     async signUp() {
       const check = this.checkForm();
-      if(!check) return;
+      if(!check){
+        return;
+      }
 
-      // await this.register(this.user);
-      await this.$router.push('/registro/telefono');
+      const registered = await this.register(this.user);
+
+      if(registered){
+        await this.$router.push({name: 'Phone'});
+      }
+
     },
     checkForm() {
       this.errors.email = [];

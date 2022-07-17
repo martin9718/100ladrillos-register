@@ -23,7 +23,7 @@
             <v-btn to="/registro/usuario" class="btn-no-active mt-6 mr-4">Anterior</v-btn>
             <v-btn :class="errors.length > 0 ? 'btn-no-active' : 'btn-active' "
                    :disabled="errors.length > 0" class="mt-6"
-            @click="showModal">Siguiente</v-btn>
+            @click="validPhone">Siguiente</v-btn>
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@ export default {
     this.setSteps(2);
   },
   methods:{
-    ...mapActions('auth', ['setSteps']),
+    ...mapActions('auth', ['setSteps', 'phoneNumber']),
     showPass(){
       this.show = !this.show;
     },
@@ -68,10 +68,16 @@ export default {
       if (this.errors.length > 0) return false;
       else return true;
     },
-    showModal(){
+    async validPhone(){
       const check = this.checkPhone();
-      if(!check) return;
-      this.modal = true;
+      if(!check) {
+        return;
+      }
+      const phone = await this.phoneNumber(this.number);
+
+      if(phone){
+        this.modal = true;
+      }
     },
     getModal(modal){
       this.modal = modal

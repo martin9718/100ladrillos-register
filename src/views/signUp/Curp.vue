@@ -71,8 +71,10 @@ export default {
     },
     completeRegister(){
       const check = this.checkCURP();
-      if(!check) return;
-      this.$router.push('/registro/completo')
+      if(!check){
+        return;
+      }
+      this.$router.push({name: 'Completed'})
     }
   }
 }
