@@ -1,17 +1,23 @@
 import Vue from 'vue';
+import Router from '@/router/index';
 
-const showErrorAlert = (error) => {
+const showErrorAlert = (error, redirect) => {
     Vue.swal.fire({
         text: error,
         icon: 'error',
         confirmButtonColor: '#ff5a60',
         confirmButtonText: 'Cerrar'
+    }).then(async () =>{
+        if(redirect){
+            await Router.push({name: 'SignUp'})
+        }
     });
 }
 
 export const handleErrors = (code) => {
 
     let error = '';
+    let redirect = false;
 
     switch (code) {
         case 'INVALID_PASSWORD_FORMAT':
@@ -28,6 +34,7 @@ export const handleErrors = (code) => {
             break;
         case 'UNAUTHORIZED':
             error = 'No autorizado.';
+            redirect = true;
             break;
         case 'INVALID_TOKEN':
             error = 'El código de verificación no es válido.';
@@ -43,6 +50,6 @@ export const handleErrors = (code) => {
             break;
     }
 
-    showErrorAlert(error);
+    showErrorAlert(error, redirect);
 
 }

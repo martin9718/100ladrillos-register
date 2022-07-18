@@ -1,6 +1,6 @@
 <template>
 <div class="phone d-flex justify-center align-center">
-  <ModalPhone :modal="modal" @modal="getModal($event)"/>
+  <ModalPhone :number="number" :modal="modal" @modal="getModal($event)"/>
   <div class="phone__content">
     <div class="phone__content__head">
       <Steps class="d-block d-md-none mb-6" />
@@ -62,7 +62,7 @@ export default {
     checkPhone(){
       this.errors = [];
       if (!this.number) this.errors.push('El teléfono es requerido');
-      if (isNaN(this.number) || this.number.length < 10) this.errors.push('El teléfono debe ser un número válido');
+      if (isNaN(this.number) || this.number.length !== 10) this.errors.push('El teléfono debe ser un número válido');
 
 
       if (this.errors.length > 0) return false;

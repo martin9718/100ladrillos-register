@@ -2,8 +2,8 @@
   <div class="steps">
     <div class="steps__content  d-flex justify-center align-center">
     <span
-        v-for="(item, i) in 4"
-        :class="i + 1 <= getSteps ? 'completed': ''"
+        v-for="(item, i) in 5"
+        :class="i + 1 === getSteps ? 'completed': ''"
     >
     </span>
     </div>

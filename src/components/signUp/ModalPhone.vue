@@ -1,40 +1,40 @@
 <template>
   <v-dialog
-    :value="showModal"
-    max-width="549"
-    persistent
+      :value="showModal"
+      max-width="549"
+      persistent
 
 
->
-  <v-card class="modal">
-    <v-card-title class="modal__head d-flex flex-column" >
-      <h3>Verifica tu teléfono de celular</h3>
-      <img src="../../assets/images/phone.png" alt="">
-    </v-card-title>
-    <v-card-text class="model__main d-flex flex-column ">
-      <p>Hemos enviado un código único de 6 digítos a tú teléfono celular</p>
-      <span class="model__main__phone">11 111 1111</span>
+  >
+    <v-card class="modal">
+      <v-card-title class="modal__head d-flex flex-column">
+        <h3>Verifica tu teléfono de celular</h3>
+        <img src="../../assets/images/phone.png" alt="">
+      </v-card-title>
+      <v-card-text class="model__main d-flex flex-column ">
+        <p>Hemos enviado un código único de 6 digítos a tú teléfono celular</p>
+        <span class="model__main__phone">{{number}}</span>
 
-      <span class="model__main__expiration">Tu código expirará en 2 minutos</span>
+        <span class="model__main__expiration">Tu código expirará en 2 minutos</span>
 
-      <div class="model__main__input d-flex justify-space-between">
-        <input type="text" v-model="digits.one" ref="d1" @keyup="jumpDigit('d2')">
-        <input type="text" v-model="digits.twoo" ref="d2" @keyup="jumpDigit('d3')">
-        <input type="text" v-model="digits.tree" ref="d3" @keyup="jumpDigit('d4')">
-        <input type="text" v-model="digits.four" ref="d4">
-      </div>
-      <span class="errors">{{errors[0]}}</span>
-      <p class="model__main__re-send">¿Aún no te llega tu código? ó ¿Tu código expiró? Intenta enviarlo nuevamente</p>
-    </v-card-text>
-    <v-card-actions class="model__actions d-flex flex-column">
-      <v-btn class="model__actions__re-send" text >Renvíar SMS</v-btn>
-      <div class="model__actions__btn d-flex justify-space-between">
-        <v-btn @click="closeModal" class="mr-1" color="primary" outlined>Cancelar</v-btn>
-        <v-btn @click="verifyNumber" class="ml-1" color="primary">Validar código</v-btn>
-      </div>
-    </v-card-actions>
-  </v-card>
-</v-dialog>
+        <div class="model__main__input d-flex justify-space-between">
+          <input type="text" v-model="digits.one" ref="d1" @input="jumpDigit('d2')">
+          <input type="text" v-model="digits.two" ref="d2" @input="jumpDigit('d3')">
+          <input type="text" v-model="digits.tree" ref="d3" @input="jumpDigit('d4')">
+          <input type="text" v-model="digits.four" ref="d4">
+        </div>
+        <span class="errors">{{ errors[0] }}</span>
+        <p class="model__main__re-send">¿Aún no te llega tu código? ó ¿Tu código expiró? Intenta enviarlo nuevamente</p>
+      </v-card-text>
+      <v-card-actions class="model__actions d-flex flex-column">
+        <v-btn class="model__actions__re-send" text>Renvíar SMS</v-btn>
+        <div class="model__actions__btn d-flex justify-space-between">
+          <v-btn @click="closeModal" class="mr-1" color="primary" outlined>Cancelar</v-btn>
+          <v-btn @click="verifyNumber" class="ml-1" color="primary">Validar código</v-btn>
+        </div>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 
 </template>
 
@@ -43,14 +43,15 @@ import {mapActions} from "vuex";
 
 export default {
   name: "ModalPhone",
-  props:{
-    modal: Boolean
+  props: {
+    modal: Boolean,
+    number: String
   },
-  data(){
-    return{
-      digits:{
+  data() {
+    return {
+      digits: {
         uno: null,
-        twoo: null,
+        two: null,
         tree: null,
         four: null
       },
@@ -64,70 +65,80 @@ export default {
       this.showModal = val;
     }
   },
-  methods:{
+  methods: {
     ...mapActions('auth', ['verifyPhoneNumber']),
-    closeModal(){
+    closeModal() {
       this.showModal = false;
       this.passModal();
     },
-    passModal(){
+    passModal() {
       this.$emit('modal', this.showModal)
     },
-    checkDigits(){
+    checkDigits() {
       this.errors = [];
 
-      this.digit = this.digits.one + this.digits.twoo + this.digits.tree + this.digits.four;
+      this.digit = this.digits.one + this.digits.two + this.digits.tree + this.digits.four;
 
-      if(!this.digit || isNaN(this.digit) || this.digit.length !== 4){
+      if (!this.digit || isNaN(this.digit) || this.digit.length !== 4) {
         this.errors.push('Los digitos no son válidos');
         return false;
-      }else{
+      } else {
         return true;
 
       }
     },
-    async verifyNumber(){
+    async verifyNumber() {
       const check = this.checkDigits();
-      if(!check) {
+      if (!check) {
         return;
       }
 
       const verify = await this.verifyPhoneNumber(this.digit);
-      if(verify){
-        await this.$router.push({name: 'Profile'})
+      if (verify) {
+        return await this.$router.push({name: 'Profile'})
       }
 
+      this.resetDigits();
     },
-    jumpDigit(digit){
+    jumpDigit(digit) {
       this.$refs[digit].focus();
+    },
+    resetDigits() {
+      this.digits = {
+        uno: null,
+        two: null,
+        tree: null,
+        four: null
+      };
+      this.$refs['d1'].focus();
     }
   }
 }
 </script>
 
 <style scoped>
-.modal{
+.modal {
   color: #3e3e3e;
   padding: 32px;
 }
 
-.modal__head h3{
+.modal__head h3 {
   font-size: 18px;
   font-weight: normal;
   letter-spacing: normal;
 }
 
-.modal__head img{
+.modal__head img {
   margin-top: 32px;
 }
 
-.model__main{
+.model__main {
   font-size: 14px;
   margin-top: 32px;
   text-align: center;
 }
 
-.model__main__phone{
+.model__main__phone {
   font-size: 16px;
   font-weight: bold;
 }
@@ -136,18 +147,18 @@ export default {
   margin-bottom: 0;
 }
 
-.model__main__expiration{
+.model__main__expiration {
   color: #8c8c8c;
   font-size: 12px;
   margin: 44px 0;
 }
 
-.model__main__input{
+.model__main__input {
   margin: 0 auto;
   width: 184px;
 }
 
-.model__main__input input{
+.model__main__input input {
   border: 1px solid #bdbcbc;
   border-radius: 4px;
   height: 46px;
@@ -155,17 +166,17 @@ export default {
   text-align: center;
 }
 
-.model__main__input input:focus-visible{
+.model__main__input input:focus-visible {
   outline: none;
   border: 4px solid #77c1ff;
 }
 
-.model__main__re-send{
+.model__main__re-send {
   font-size: 12px;
   margin-top: 32px;
 }
 
-.model__actions__re-send{
+.model__actions__re-send {
   color: #8c8c8c;
   font-size: 16px;
   font-weight: bold;
@@ -173,7 +184,7 @@ export default {
   text-transform: none;
 }
 
-.model__actions__btn .v-btn{
+.model__actions__btn .v-btn {
   font-size: 16px;
   font-weight: normal;
   height: 40px;
@@ -182,17 +193,18 @@ export default {
   margin-top: 24px;
 }
 
-.errors{
+.errors {
   font-size: 12px;
   color: red;
 }
 
 @media (max-width: 499px) {
-  .modal{
+  .modal {
     color: #3e3e3e;
     padding: 0;
   }
-  >>> .v-dialog{
+
+  >>> .v-dialog {
     margin: 0 !important;
   }
 }

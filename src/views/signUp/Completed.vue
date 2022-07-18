@@ -35,10 +35,11 @@ export default {
     }
   },
   async created() {
+    this.setSteps(5);
     this.user = await this.profile();
   },
   methods:{
-    ...mapActions('auth', ['profile'])
+    ...mapActions('auth', ['setSteps','profile'])
   }
 }
 </script>

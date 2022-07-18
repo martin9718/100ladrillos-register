@@ -51,7 +51,6 @@ export default {
   methods: {
     checkPassword(password) {
 
-
       this.resetClass();
       this.errors = [];
       if(!password) return;
@@ -59,18 +58,12 @@ export default {
       if (password.length >= 6) this.addClass('rule1');
       else this.errors.push('La contraseña debe tener mínimo 6 caracteres');
 
+      let regex = /[0-9]/g;
+
+      if(password.match(regex)) this.addClass('rule2');
+      else this.errors.push('La contraseña debe tener mínimo 1 número');
+
       const items = password.split('');
-
-      for(let i  = 0; i < items.length; i++){
-        if (!isNaN(items[i])) {
-          this.addClass('rule2');
-          break;
-        }else if (i === items.length -1){
-          this.errors.push('La contraseña debe tener mínimo 1 número');
-        }
-
-      }
-
 
       const signs = '!”#$%&/()=?¿^*@‚[]{};:_><,.-|`+'.split('');
 
@@ -87,15 +80,15 @@ export default {
       if (!password.includes('100Ladrillos')) this.addClass('rule4');
       else this.errors.push('La contraseña no debe contener la frase "100Ladrillos"');
 
-
-      items.forEach((item, i) => {
-        if (password.includes(item + item + item)){
+      for(let i  = 0; i < items.length; i++){
+        if (password.includes(items[i] + items[i]+ items[i])) {
           this.errors.push('La contraseña no debe contener 3 caracteres identicos de forma consecutiva');
-        }
-        else if (i === items.length - 1){
+          break;
+        }else if (i === items.length -1){
           this.addClass('rule5');
         }
-      });
+
+      }
 
       this.validNumbers(password, items);
 
@@ -106,21 +99,22 @@ export default {
 
         let isValid = true;
 
-        items.forEach((item, i) => {
-
+        for(let i  = 0; i < items.length; i++){
           if (items.length - i >= 3) {
-            let valid = parseInt(item) + parseInt(items[i + 1]) + parseInt(items[i + 2]);
+            let valid = parseInt(items[i]) + parseInt(items[i + 1]) + parseInt(items[i + 2]);
 
             if (
                 !isNaN(valid)
-                && parseInt(items[i + 1]) - parseInt(item)  === 1
-                && parseInt(items[i + 2]) - parseInt(item)  === 2
+                && parseInt(items[i + 1]) - parseInt(items[i])  === 1
+                && parseInt(items[i + 2]) - parseInt(items[i])  === 2
             ) {
               this.errors.push('La contraseña no debe contener 3 caracteres numéricos y/o letras en forma secuencial');
-              return isValid = false;
+              isValid = false;
+              break;
             }
+
           }
-        });
+        }
 
         if (isValid) this.addClass('rule6');
 

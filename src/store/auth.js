@@ -3,7 +3,7 @@ import store from '../store';
 export default {
     namespaced: true,
     state: {
-        token: '',
+        token: null,
         steps: 1
     },
     mutations: {

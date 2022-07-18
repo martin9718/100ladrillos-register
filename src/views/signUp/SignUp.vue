@@ -26,7 +26,7 @@
           <span>{{ errors.password[0] }}</span>
         </div>
 
-        <div v-if="!user.email">
+        <div v-if="!user.email && !user.password">
           <Social/>
 
           <div class="form__login d-block d-md-none">
@@ -95,9 +95,10 @@ export default {
   },
   created() {
     this.setSteps(1)
+    this.setToken(null);
   },
   methods: {
-    ...mapActions('auth', ['register', 'setSteps']),
+    ...mapActions('auth', ['register', 'setSteps', 'setToken']),
     async signUp() {
       const check = this.checkForm();
       if(!check){
@@ -116,7 +117,7 @@ export default {
       this.errors.password = [];
       this.errors.password_confirm = [];
       if (!this.user.email) this.errors.email.push('El correo electrónico es requerido');
-      if (!this.user.email.includes('@')) this.errors.email.push('El correo electrónico debe ser válido');
+      if (!this.user.email?.includes('@')) this.errors.email.push('El correo electrónico debe ser válido');
       if (!this.user.password) this.errors.password.push('La contraseña es requerida');
       if (!this.user.password_confirm || this.user.password_confirm !== this.user.password) this.errors.password_confirm.push('Las contraseñas no coinciden');
 
