@@ -31,9 +31,9 @@
           </div>
 
           <div class="profile__content__form__actions">
-            <v-btn to="/registro/telefono" class="btn-no-active mt-6 mr-4">Anterior</v-btn>
-            <v-btn :class="errorsExists ? 'btn-no-active' : 'btn-active' "
-                   :disabled="errorsExists > 0" class="mt-6"
+            <v-btn :to="{name: 'Phone'}" class="btn-no-active mt-6 mr-4">Anterior</v-btn>
+            <v-btn :class="errorsExists || !user.name || !user.firstLastName? 'btn-no-active' : 'btn-active' "
+                   :disabled="errorsExists || !user.name || !user.firstLastName" class="mt-6"
                    @click="createProfile">Siguiente</v-btn>
           </div>
         </div>

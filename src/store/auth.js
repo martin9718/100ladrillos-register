@@ -34,8 +34,6 @@ export default {
                 );
             if(!response) return false;
 
-            console.log(response.token)
-
             await store.dispatch('auth/setToken', 'bearer ' + response.token);
             return response;
 

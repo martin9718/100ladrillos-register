@@ -41,8 +41,8 @@
       </div>
     </v-app-bar>
     <v-main>
-      <v-row>
-        <v-col md="4" class="hidden-sm-and-down">
+      <v-row class="ma-0">
+        <v-col md="4" class="hidden-sm-and-down pa-0">
           <v-img
               src="../assets/images/register-layout/main-img.png"
               max-width="524"
@@ -50,7 +50,7 @@
 
           </v-img>
         </v-col>
-        <v-col cols="12" md="8" class="main">
+        <v-col cols="12" md="8" class="main pa-0">
           <slot/>
         </v-col>
       </v-row>

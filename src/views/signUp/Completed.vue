@@ -8,7 +8,7 @@
         <span>Tu número de cliente es: {{user.clientNumber}}</span>
       </div>
       <div class="completed__content__info">
-        <h3>{{`${user.name} ${user.secondName || ''} ${user.firstLastName} ${user.secondLastName || ''}`}}</h3>
+        <h3>{{`${user.name || ''} ${user.secondName || ''} ${user.firstLastName || ''} ${user.secondLastName || ''}`}}</h3>
         <span>{{user.email}}</span>
         <span v-if="user.phone">{{user.phone.number}}</span>
       </div>
@@ -68,6 +68,7 @@ export default {
   display: block;
   color: #8c8c8c;
   margin-top: 16px;
+  word-break: break-word;
 }
 
 .completed__content__info{

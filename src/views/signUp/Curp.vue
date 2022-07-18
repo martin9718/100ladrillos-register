@@ -20,9 +20,9 @@
         <v-btn text color="primary">Iniciar sesión</v-btn>
       </div>
         <div class="phone__content__form__actions">
-          <v-btn to="/registro/perfil" class="btn-no-active mt-6 mr-4">Anterior</v-btn>
+          <v-btn :to="{name: 'Profile'}" class="btn-no-active mt-6 mr-4">Anterior</v-btn>
           <v-btn @click="completeRegister" :class="errors.length > 0 ? 'btn-no-active' : 'btn-active' "
-                 :disabled="errors.length > 0" class="mt-6"
+                 :disabled="errors.length > 0 || !curp" class="mt-6"
                  >Siguiente</v-btn>
         </div>
       </div>

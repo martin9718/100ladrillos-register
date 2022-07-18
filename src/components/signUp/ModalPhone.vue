@@ -3,17 +3,16 @@
       :value="showModal"
       max-width="549"
       persistent
-
-
+      class="ma-1 ma-md-0"
   >
     <v-card class="modal">
       <v-card-title class="modal__head d-flex flex-column">
         <h3>Verifica tu teléfono de celular</h3>
-        <img src="../../assets/images/phone.png" alt="">
+        <img src="../../assets/images/phone.png" alt="" class="hidden-sm-and-down">
       </v-card-title>
       <v-card-text class="model__main d-flex flex-column ">
-        <p>Hemos enviado un código único de 6 digítos a tú teléfono celular</p>
-        <span class="model__main__phone">{{number}}</span>
+        <p>Hemos enviado un código único de 4 digítos a tú teléfono celular</p>
+        <span class="model__main__phone">{{formatTel}}</span>
 
         <span class="model__main__expiration">Tu código expirará en 2 minutos</span>
 
@@ -29,8 +28,20 @@
       <v-card-actions class="model__actions d-flex flex-column">
         <v-btn class="model__actions__re-send" text>Renvíar SMS</v-btn>
         <div class="model__actions__btn d-flex justify-space-between">
-          <v-btn @click="closeModal" class="mr-1" color="primary" outlined>Cancelar</v-btn>
-          <v-btn @click="verifyNumber" class="ml-1" color="primary">Validar código</v-btn>
+          <v-btn
+              @click="closeModal"
+              class="mr-1"
+              color="primary"
+              outlined>
+            Cancelar
+          </v-btn>
+          <v-btn
+              @click="verifyNumber"
+              class="ml-1"
+              :disabled="disabledBtn"
+              :class="disabledBtn ? 'btn-no-active' : 'btn-active' ">
+            Validar código
+          </v-btn>
         </div>
       </v-card-actions>
     </v-card>
@@ -50,7 +61,7 @@ export default {
   data() {
     return {
       digits: {
-        uno: null,
+        one: null,
         two: null,
         tree: null,
         four: null
@@ -105,12 +116,20 @@ export default {
     },
     resetDigits() {
       this.digits = {
-        uno: null,
+        one: null,
         two: null,
         tree: null,
         four: null
       };
       this.$refs['d1'].focus();
+    }
+  },
+  computed:{
+    formatTel(){
+      return `${this.number.substring(0,2)} ${this.number.substring(2,6)} ${this.number.substring(6,10)}`;
+    },
+    disabledBtn(){
+      return !this.digits.one || !this.digits.two || !this.digits.tree || !this.digits.four;
     }
   }
 }
@@ -205,7 +224,7 @@ export default {
   }
 
   >>> .v-dialog {
-    margin: 0 !important;
+    margin: 6px !important;
   }
 }
 

@@ -14,13 +14,13 @@
       <div class="sign-up__content__form">
         <div class="form__field">
           <label>¿Cuál es tu correo electrónico?</label>
-          <input type="email" v-model="user.email" @input="checkForm">
+          <input type="email" v-model="user.email" @input="checkForm" placeholder="tu@correo.com">
           <span>{{ errors.email[0] }}</span>
         </div>
         <div class="form__field">
           <label>Ingresa una contraseña</label>
           <div class="form__field__pass d-flex align-center">
-            <input :type="show ? 'text' : 'password'" v-model="user.password" @input="checkForm">
+            <input :type="show ? 'text' : 'password'" v-model="user.password" @input="checkForm" placeholder="Contraseña">
             <v-icon @click="showPass" size="small">{{ show ? 'fas fa-eye-slash' : 'fas fa-eye' }}</v-icon>
           </div>
           <span>{{ errors.password[0] }}</span>

@@ -19,10 +19,10 @@
             <span>¿Ya tienes tu cuenta?</span>
             <v-btn text color="primary">Iniciar sesión</v-btn>
           </div>
-          <div class="phone__content__form__actions">
-            <v-btn to="/registro/usuario" class="btn-no-active mt-6 mr-4">Anterior</v-btn>
-            <v-btn :class="errors.length > 0 ? 'btn-no-active' : 'btn-active' "
-                   :disabled="errors.length > 0" class="mt-6"
+          <div class="phone__content_form__actions">
+            <v-btn :to="{name: 'SignUp'}" class="btn-no-active mt-6 mr-4">Anterior</v-btn>
+            <v-btn :class="errors.length > 0 || number.length === 0 ? 'btn-no-active' : 'btn-active' "
+                   :disabled="errors.length > 0 || number.length === 0" class="mt-6"
             @click="validPhone">Siguiente</v-btn>
           </div>
         </div>
