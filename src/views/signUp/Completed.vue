@@ -1,5 +1,5 @@
 <template>
-  <div class="completed d-flex justify-center">
+  <div class="completed d-flex justify-center fadeIn">
     <div class="completed__content">
       <div class="completed__content__head">
         <Steps class="d-block d-md-none mb-6" />

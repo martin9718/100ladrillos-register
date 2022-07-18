@@ -1,5 +1,5 @@
 <template>
-  <div class="sign-up d-flex justify-center">
+  <div class="sign-up d-flex justify-center fadeIn">
     <div class="sign-up__content">
       <div class="sign-up__content__head">
         <Steps class="d-block d-md-none mb-6"/>

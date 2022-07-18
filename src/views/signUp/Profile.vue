@@ -1,5 +1,5 @@
 <template>
-  <div class="profile d-flex justify-center align-center">
+  <div class="profile d-flex justify-center align-center fadeIn">
     <div class="profile__content">
       <div class="profile__content__head">
         <Steps class="d-block d-md-none mb-6" />

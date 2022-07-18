@@ -12,7 +12,7 @@
         <div>
           <v-img
               alt="Vuetify Name"
-              class="shrink mt-1 hidden-sm-and-down mx-auto"
+              class="shrink mt-1 hidden-sm-and-down mx-auto fadeIn"
               contain
               min-width="100"
               src="../assets/images/logo-100ladrillos.png"

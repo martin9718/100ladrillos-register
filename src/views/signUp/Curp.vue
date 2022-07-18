@@ -1,5 +1,5 @@
 <template>
-  <div class="curp d-flex justify-center align-center">
+  <div class="curp d-flex justify-center align-center fadeIn">
     <div class="curp__content">
       <div class="curp__content__head">
         <Steps class="d-block d-md-none mb-6" />

@@ -1,5 +1,5 @@
 <template>
-<div class="phone d-flex justify-center align-center">
+<div class="phone d-flex justify-center align-center fadeIn">
   <ModalPhone :number="number" :modal="modal" @modal="getModal($event)"/>
   <div class="phone__content">
     <div class="phone__content__head">
