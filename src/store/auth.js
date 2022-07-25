@@ -1,5 +1,4 @@
 import store from '../store';
-import axios from 'axios';
 
 export default {
     namespaced: true,
